@@ -125,6 +125,7 @@
 					pwd.addClass("is-invalid");
 					pwd.focus();
 					success = false;
+					return;
 				}
 			}
 			
@@ -144,6 +145,7 @@
 					$("#errorRePwd").text('비밀번호가 일치하지 않습니다.');
 					repwd.focus();
 					success = false;
+					return;
 				}else{
 					repwd.addClass("is-valid");
 					success = true;
