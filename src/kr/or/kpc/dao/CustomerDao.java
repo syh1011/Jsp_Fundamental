@@ -180,6 +180,54 @@ public class CustomerDao {
 		return success;
 	}
 	
+	public CustomerDto select(String email) {
+		CustomerDto dto = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT c_email, c_name ");
+			sql.append("FROM customer ");
+			sql.append("WHERE c_email = ?");
+			sql.append("");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 0;
+
+			pstmt.setString(++index, email);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 0;
+				
+				String _email = rs.getString(++index);
+				String name = rs.getString(++index);
+
+				dto = new CustomerDto(_email,null,name);
+			}
+
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		return dto;
+	}
 	
 	
 	

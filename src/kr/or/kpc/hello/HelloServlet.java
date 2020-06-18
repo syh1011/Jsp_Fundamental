@@ -15,19 +15,19 @@ public class HelloServlet extends HttpServlet{
 	throws IOException{
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("<html>											");
-		out.println("	<head>										");
-		out.println("		<title>hello servlet</title>			");
-		out.println("	</head>										");
-		out.println("	<body>										");
-		out.println("		<h1>Hello Servlet</h1>					");
+		out.print("<html>");
+		out.print("<head>");
+		out.print("<title>hello servlet</title>");
+		out.print("</head>");
+		out.print("<body>										");
+		out.print("<h1>Hello Servlet</h1>					");
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		out.println("<h1>");
-		out.println("id : "+id  +" ,  pwd : "+pwd);
-		out.println("</h1>");
-		out.println("	</body>										");
-		out.println("</html>										");
+		out.print("<h1>");
+		out.print("id : "+id  +" ,  pwd : "+pwd);
+		out.print("</h1>");
+		out.print("	</body>										");
+		out.print("</html>										");
 		
 	}
 }

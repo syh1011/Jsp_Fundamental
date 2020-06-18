@@ -1,6 +1,3 @@
-<%@page import="kr.or.kpc.dto.CustomerDto"%>
-<%@page import="kr.or.kpc.dto.MemberDto"%>
-<%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,3 +63,7 @@
 	   	
 	  </div>
 	</nav>
+<%@page import="kr.or.kpc.dto.CustomerDto"%>
+<%@page import="kr.or.kpc.dto.MemberDto"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+	

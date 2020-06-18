@@ -19,7 +19,7 @@
     	<div class="row">
 	        <div class="col-md-12">
 	        	<h3>회원정보확인</h3>
-	        	<form method="post" name="f" action="save.jsp">
+	        	<form method="post" name="f" action="checkPwd.jsp">
 				  <div class="form-group">
 	                <input type="text" class="form-control" id="email" name="email" 
 	                	placeholder="Your Email *" value="<%=email %>" readonly/>
