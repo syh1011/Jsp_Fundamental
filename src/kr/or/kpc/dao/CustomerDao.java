@@ -140,6 +140,46 @@ public class CustomerDao {
 		return resultCount;
 	}
 	
+	public boolean isExisted(String email) {
+		boolean success = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT c_email ");
+			sql.append("FROM customer ");
+			sql.append("WHERE c_email = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
+			int index = 0;
+			
+			pstmt.setString(++index, email);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				success = true;
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		return success;
+	}
+	
 	
 	
 	
