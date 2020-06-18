@@ -64,17 +64,12 @@
 		const repwd = $("#repwd");
 		const name = $("#name");
 		let success = false;
-		let focus = false;
 		$("#saveCustomer").click(function(e){
 			e.preventDefault();
 			if(!email.val()){
 				$("#errorEmail").text('이메일을 입력하세요.');
 				email.addClass("is-invalid");
-				email.focus();
-				focus = false;
-				success = false
 			}else{
-				focus = true;
 				if(validateEmail(email.val())){
 					$.ajax({
 						type : 'get',
@@ -92,7 +87,7 @@
 								email.removeClass("is-valid");
 								$("#errorEmail").text('이미 등록된 이메일 입니다.');
 								email.addClass("is-invalid");
-								success = false;
+								email.focus();
 								return;
 							}
 						}
@@ -102,21 +97,13 @@
 					$("#errorEmail").text('이메일 주소 형식이 맞지 않습니다.');
 					email.addClass("is-invalid");
 					email.focus();
-					success = false;
 					return;
 				}
 			}
 			if(!pwd.val()){
-				
 				pwd.addClass("is-invalid");
 				$("#errorPwd").text('비밀번호를 입력하세요.');
-				if(focus){
-					pwd.focus();
-				}
-				focus = false;
-				success = false;
 			}else{
-				focus = true;
 				if(pwd.val().length >= 8 && pwd.val().length <=12){
 					pwd.addClass("is-valid");
 					success = true;
@@ -124,27 +111,18 @@
 					$("#errorPwd").text('비밀번호는 8-12자리 이어야 합니다.');
 					pwd.addClass("is-invalid");
 					pwd.focus();
-					success = false;
 					return;
 				}
 			}
 			
 			if(!repwd.val()){
-				
 				repwd.addClass("is-invalid");
 				$("#errorRePwd").text('비밀번호를 입력하세요.');
-				if(focus){
-					repwd.focus();
-				}
-				focus = false;
-				success = false;
 			}else{
-				focus = true;
 				if(pwd.val() != repwd.val()){
 					repwd.addClass("is-invalid");
 					$("#errorRePwd").text('비밀번호가 일치하지 않습니다.');
 					repwd.focus();
-					success = false;
 					return;
 				}else{
 					repwd.addClass("is-valid");
@@ -153,20 +131,30 @@
 			}
 			
 			if(!name.val()){
-				
 				name.removeClass("is-valid");
 				name.addClass("is-invalid");
 				$("#errorName").text('이름을 입력하세요.');
-				if(focus){
-					name.focus();
-				}
-				focus = false;
-				success = false;
 			}else{
-				focus = true;
 				name.removeClass("is-invalid");
 				name.addClass("is-valid");
 				success = true;
+			}
+			
+			if(!email.val()){
+				email.focus();
+				return;
+			}
+			if(!pwd.val()){
+				pwd.focus();
+				return;
+			}
+			if(!repwd.val()){
+				repwd.focus();
+				return;
+			}
+			if(!name.val()){
+				name.focus();
+				return;
 			}
 			
 			if(success){
@@ -241,6 +229,18 @@
 				repwd.removeClass("is-invalid");
 				repwd.addClass("is-valid");
 			}
+		});
+		name.blur(function(){//커서가 나갈때 발생하는 이벤트
+			if(!name.val()){
+				name.removeClass("is-valid");
+				$("#errorRePwd").text('이름을 입력하세요.');
+				name.addClass("is-invalid");
+				return;
+			}else{
+				name.removeClass("is-invalid");
+				name.addClass("is-valid");
+			}
+			
 		});
 		function validateEmail(email) {
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
