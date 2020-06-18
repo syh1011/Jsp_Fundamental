@@ -68,4 +68,89 @@ public class CustomerDao {
 		return dto;
 	}
 	
+	public int insert(CustomerDto dto) {
+		int resultCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("INSERT INTO customer(c_email,c_pwd,c_name)  ");
+			sql.append("VALUES(?,PASSWORD(?),?) ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 0;
+			pstmt.setString(++index, dto.getEmail());
+			pstmt.setString(++index, dto.getPwd());
+			pstmt.setString(++index, dto.getName());
+
+			resultCount = pstmt.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return resultCount;
+	}
+	public int update(CustomerDto dto) {
+		int resultCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("UPDATE customer ");
+			sql.append("SET c_pwd = PASSWORD(?), c_name = ? ");
+			sql.append("WHERE c_email = ? ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 0;
+			pstmt.setString(++index, dto.getPwd());
+			pstmt.setString(++index, dto.getName());
+			pstmt.setString(++index, dto.getEmail());
+
+			resultCount = pstmt.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return resultCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
